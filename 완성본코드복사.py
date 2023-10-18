@@ -1,6 +1,7 @@
 from flask import Flask, request
 from bardapi import BardCookies
 from flask_cors import CORS
+import re
 import json
 
 # Flask객체를 app변수에 담기
@@ -41,70 +42,83 @@ def test1():
 
         def getbard():  # Bard API에 연결하기 (쿠기값 = 인증정보)
             cookie_dict = {
-                "__Secure-1PSID": "cAgpBX3ssxsl18qcr2-Ho0m8XvoNXXyIuwC4gcZXKifsoFctbUwojZXYF-g_o5n_g1ivZQ.",
+                "__Secure-1PSID": "bwjEVU5yMQRiIn298__CQ7AbojY9zADKOWtZo0UiMsVndzfonxrCxuuOuF_4DkY_moMMKA.",
                 # 매번 바뀌므로 주의
-                "__Secure-1PSIDTS": "sidts-CjIB3e41hTYYKmq9Ot_lZ6J8SBKpp8qh-PbWbdcCyRfHUuDyBtKHaHV7WTLNOMycDdXihRAA", }  # 매번 바뀌므로 주의
+                "__Secure-1PSIDTS": "sidts-CjIB3e41hbhEBuZqaLGDDow5taWHFRRhndI06r5y1lcV6wvyUq4LQbs8buODA5hF0__hGRAA", }  # 매번 바뀌므로 주의
 
             # Bard_API와 상호작용할 수 있는 객체 만들기 및 인증정보 전달하기
             bard = BardCookies(cookie_dict=cookie_dict)
 
             # Bard의 답변을 judgement1변수에 담기
-            marking = bard.get_answer(
-                f'''
-                                {problem} : {problem_value}
-                                {code} : {code_value}
-                               코드가 실행가능하다면 '정답', 실행불가능하다면 '오답' 이라는 단어로만 답해줘. 그이외의 설명은 하지 말아줘.
-                                그리고 답변을 할 때 조건이 있어.
-                                답변은 반드시 딕셔너리(dictionary) 형태로 '실행결과' : '정답' 또는 '오답' 이렇게만 출력해줘.
-                                (:)콜론을 기준으로 저 2개의 답변 빼고는 어떤 설명도 하지 말아줘.
-
+            marking1 = bard.get_answer(
+                f''' 
+                문제 :
+                {problem_value}
+                제출한 코드 :
+                {code_value}
+                제한조건 :
+                {con_value}
+                
+                1번 2번 문장으로만 답변해줘, 
+                1, 2번 문장 이외의 답변은 절대 하지마,
+                1번 답변은 <<<>>> 로 감싸주고 2번 답변은 !!! 로 감싸줘
+                다른말, 설명은 절대 하지마
+                1. 제출한 코드가 문제에 대해 => <<<정답 or 오답>>>
+                2. 조건n 번이 제출한 코드가 제한조건에 => !!!n번 조건 : 만족 or 불만족!!!
                             ''')['content']
 
-            marking += bard.get_answer(
-                f'''
-                                {con} : {con_value}
-                                {code} : {code_value}
-                                코드가 각각의 조건에 완벽하게 부합한다면 '통과', 완벽하게 부합하지 않으면 '실패' 라는 단어로만 답해줘. 그이외의 설명은 하지 말아줘.
-                                그리고 답변을 할 때 조건이 있어.
-                                답변은 반드시 하나의 리스트(list) 형태로 '조건+번호' : '통과' 또는 '실패' 이렇게 각각의 조건부합결과를 하나의 리스트 안에서 쉼표(,)로 구분하여 조건과 결과를 출력해줘.
-                                (:)콜론을 기준으로저 2개의 답변 빼고는 어떤 설명도 하지 말아줘.
-                            ''')['content']
+
 
             # Bard의 답변 출력하고 return하기(Bard함수 실행되면 return함)
-            print(marking)
-            return marking
+            # print(marking1)
+            return marking1
 
             # ========================================================================= # Bard 함수 실행
 
             # Bard 스크립트의 main함수 정의하기
 
-        def main():
-            marking = getbard()
-            return marking
-
             # Bard 스크립트 main함수 실행 및 judgement변수에 담기
 
-        marking = main()
 
         # Bard 스크립트가 직접 실행될 때만 main()함수 호출하도록 하는 파이썬의 관례적인 코드
         if __name__ == "__main__":
-            main()
+            marking = getbard()
+            print('마킹', marking)
 
         # ========================================================================= # Bard함수 실행해서 return받은 답변을 파싱하기
 
-        # Bard의 답변에서 정답과 조건들만 뽑아내기(파싱)
-        # 파싱 시작 위치 설정
-        a_index = marking.find("{")
-        c_index = marking.find("[")
+        # # Bard의 답변에서 정답과 조건들만 뽑아내기(파싱)
+        # # 파싱 시작 위치 설정
+        # a_index = marking.find("<<<")
+        # c_index = marking.find(">>>")
+        #
+        # # 파싱 끝 위치 설정
+        # b_index = marking.find("!!!")
+        # d_index = marking.find("!!!")
+        #
+        # # 파싱 끝낸 결과값 final변수에 담고 콘솔창에 출력해보기
+        # final_result = marking[a_index:b_index + 4]
+        # final_result += marking[c_index:d_index + 4]
+        # print("☆파싱 시작-> ", final_result, " <- 파싱 끝☆")
 
-        # 파싱 끝 위치 설정
-        b_index = marking.find("}")
-        d_index = marking.find("]")
+        def parse_marking(marking):
+            # 각 정보를 추출하는 정규 표현식
+            pattern = r'(\d+|\d+\.)\. ([^!]+) <<<([^>]+)>>>|\d+\. ([^!]+) !!!\[([^\]]+)\]!!!'
 
-        # 파싱 끝낸 결과값 final변수에 담고 콘솔창에 출력해보기
-        final_result = marking[a_index:b_index + 4]
-        final_result += marking[c_index:d_index + 4]
-        print("☆파싱 시작-> ", final_result, " <- 파싱 끝☆")
+            matches = re.finditer(pattern, marking)
+            results = []
+
+            for match in matches:
+                groups = match.groups()
+                if groups[0]:  # 정답 정보
+                    results.append(('정답', groups[2]))
+                else:  # 조건 정보
+                    results.append((f'조건{groups[3]}', groups[4].strip()))
+
+            return results
+
+        results = parse_marking(marking)
+        print('results 확인', results)
 
         # ========================================================================= #
 

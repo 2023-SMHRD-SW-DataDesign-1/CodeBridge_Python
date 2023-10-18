@@ -4,11 +4,36 @@ from flask import Flask, request
 
 
 # Json형태의 데이터 예시 4번
-json_data = { "문제": "입력받은 두 정수의 최대공약수를 구하시오.",
-            "난이도": "중",
-            "조건1": "입력받은 두 정수는 1 이상 100 이하의 정수이다.",
-            "조건2": "유클리드 호제법을 사용하시오.",
-            "코드": """ def gcd(x, y): while y != 0: x, y = y, x % y return x x = int(input()) y = int(input()) print(gcd(x, y)) """,
+json_data = { "문제": "세 개의 숫자 중 가장 큰 숫자를 출력하시오.",
+            "조건1": " 1 <= num1, num2, num3 <= 100",
+            "조건2": "if문을 사용하시오.",
+            "조건3": "비교 연산자를 사용하시오.",
+            "조건4": "for문을 사용하지 마시오. ",
+            "코드": """ /* package whatever; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) {
+        int num1 = 50;
+        int num2 = 30;
+        int num3 = 70;
+        
+        int max = num1; // 일단 num1을 최댓값으로 설정
+        
+        if (num2 > max) {
+            max = num2;
+        }
+        
+        if (num3 > max) {
+            max = num3;
+        }
+        
+        System.out.println("가장 큰 수는: " + max);
+    }
+} """,
             "문제생성": "생성완료3" }
 
 # ========================================================================= # Flask의 함수 시작
@@ -41,7 +66,7 @@ def test1():
     # ========================================================================= # Llama2_api 시작
     # api_toekn 설정
 
-    os.environ["REPLICATE_API_TOKEN"] = api_token
+    os.environ["REPLICATE_API_TOKEN"] = "r8_B5S1WqAGURGVZVs8MqPhqK0a3V5M0Pm0c97eL"
 
     #
     output = replicate.run(
