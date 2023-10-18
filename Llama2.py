@@ -40,7 +40,7 @@ def test1():
 
     # ========================================================================= # Llama2_api 시작
     # api_toekn 설정
-    # api_token ="r8_Nzlbgo4xuGb6tbijudbMTetkbn8vjjY4gVSVS"
+
     os.environ["REPLICATE_API_TOKEN"] = api_token
 
     #

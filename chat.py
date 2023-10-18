@@ -2,7 +2,7 @@ import openai
 import time
 
 # OPENAI API 키 입력
-# openai.api_key = "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"
+
 
 messages = [
     {"role" : "system", "content" : "너는 단답형 채점기야"}
