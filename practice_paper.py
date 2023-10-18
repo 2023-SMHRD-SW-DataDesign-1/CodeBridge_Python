@@ -13,7 +13,7 @@
 # #     for w in key:
 # #         if w[0] == "문":
 # #             print(key)
-# #             print(value, "이 값은 출력하지 말아주세요1.")
+# #             print(value, "이 값은 출력하지 말아주세요.")
 # #         elif w[0] == "코":
 # #            print(key)
 # #            print(value)
