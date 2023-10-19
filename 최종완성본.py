@@ -11,31 +11,22 @@ CORS(app)
 # Flask함수 정의하기
 @app.route("/", methods=['GET', 'POST'])  # URL 설정
 def test1():
-    print('리퀘스트 확인 :', request)
 
     if(request.method == 'GET'):
         return "GET ok"
     elif(request.method == 'POST'):
-        print('json데이터 확인 :', request.get_json())
         request_data = request.get_json()
+        problem_content = request_data.get("test_contents")
+        sub_code = request_data.get("sub_code")
+        test_condition = request_data.get("test_condition")
 
-        # json_data의 key의 첫글자에 따라 변수명을 달리하여 key와 value의 값을 담기
-        test_condition = []
-        for key, value in request_data.items():
-            for w in key:
-                if w[0] == 'p':  # problem_content : 문제
-                    problem_content = value
-                elif w[0] == 't':  # test_condition : 조건
-                    test_condition.append(value)
-                elif w[0] == 's':  # sub_code : 학생이 제출한 코드
-                    sub_code = value
 
 
     # Bard 연결하기
     # Bard에 연결하기 위한 쿠키값들 입력하기 (일정시간 이후엔 값들이 바뀌므로 수시로 재입력)
     cookie_dict = {
-                    "__Secure-1PSID": "cAgpBX3ssxsl18qcr2-Ho0m8XvoNXXyIuwC4gcZXKifsoFctbUwojZXYF-g_o5n_g1ivZQ.",
-                    "__Secure-1PSIDTS": "sidts-CjIB3e41hVXDIJEDugt4Gj9EG6MhL7WosMTAMTc5AWQlG-uWHuXAEUgc5vIUalDpsbFZNRAA",
+                    "__Secure-1PSID": "bwjEVU5yMQRiIn298__CQ7AbojY9zADKOWtZo0UiMsVndzfonxrCxuuOuF_4DkY_moMMKA.",
+                    "__Secure-1PSIDTS": "sidts-CjIB3e41hdOG-aD5K_6-QSOW76HvEtRp8aMJ3jvoG7WezP2f1Unc9MUo7t5Lw36C9-9m0BAA",
                     }
                   
 
