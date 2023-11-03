@@ -35,7 +35,7 @@ def test2():
 
     # Bard에 연결하기
     # 토큰 준비하기 (크롬의 시크릿창으로 Bard홈페이지에 접속하여 cookie값 가져오기)
-    token = 'cAgpBdH-6aA5yETpDrnD3uOERXqRMAreAc_mjWvzmNs8IYDcP-lkg31aOvOxDm_wTDXR1Q.'
+    token = ''
 
     # Bard의 답변을 bard_answer변수에 담기
     bard_answer = Bard(token=token).get_answer(

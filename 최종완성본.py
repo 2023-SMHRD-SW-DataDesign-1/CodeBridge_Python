@@ -25,8 +25,8 @@ def test1():
     # Bard 연결하기
     # Bard에 연결하기 위한 쿠키값들 입력하기 (일정시간 이후엔 값들이 바뀌므로 수시로 재입력)
     cookie_dict = {
-                    "__Secure-1PSID": "bwjEVU5yMQRiIn298__CQ7AbojY9zADKOWtZo0UiMsVndzfonxrCxuuOuF_4DkY_moMMKA.",
-                    "__Secure-1PSIDTS": "sidts-CjIB3e41hdOG-aD5K_6-QSOW76HvEtRp8aMJ3jvoG7WezP2f1Unc9MUo7t5Lw36C9-9m0BAA",
+                    "__Secure-1PSID": "",
+                    "__Secure-1PSIDTS": "",
                     }
                   
 

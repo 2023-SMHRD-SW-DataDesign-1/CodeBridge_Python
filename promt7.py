@@ -41,9 +41,9 @@ def test1():
 
         def getbard():  # Bard API에 연결하기 (쿠기값 = 인증정보)
             cookie_dict = {
-                "__Secure-1PSID": "cAgpBX3ssxsl18qcr2-Ho0m8XvoNXXyIuwC4gcZXKifsoFctbUwojZXYF-g_o5n_g1ivZQ.",
+                "__Secure-1PSID": "",
                 # 매번 바뀌므로 주의
-                "__Secure-1PSIDTS": "sidts-CjIB3e41hTYYKmq9Ot_lZ6J8SBKpp8qh-PbWbdcCyRfHUuDyBtKHaHV7WTLNOMycDdXihRAA", }  # 매번 바뀌므로 주의
+                "__Secure-1PSIDTS": "", }  # 매번 바뀌므로 주의
 
             # Bard_API와 상호작용할 수 있는 객체 만들기 및 인증정보 전달하기
             bard = BardCookies(cookie_dict=cookie_dict)

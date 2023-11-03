@@ -22,7 +22,7 @@ presence_pentaly = 0.5
 # 생성되는 텍스트의 존재감 제어 (값이 높을수록 더 많은 단어 사용)
 
 # load API key
-openai.api_key = "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"
+openai.api_key = ""
 
 # prompt 작성
 prompt =  '''

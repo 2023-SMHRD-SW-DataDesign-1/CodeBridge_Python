@@ -66,7 +66,7 @@ def test1():
     # ========================================================================= # Llama2_api 시작
     # api_toekn 설정
 
-    os.environ["REPLICATE_API_TOKEN"] = "r8_B5S1WqAGURGVZVs8MqPhqK0a3V5M0Pm0c97eL"
+    os.environ["REPLICATE_API_TOKEN"] = ""
 
     #
     output = replicate.run(

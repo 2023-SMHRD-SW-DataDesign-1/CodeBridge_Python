@@ -28,7 +28,7 @@ def test1():
 
     # ChatGPT 연결하기
     # OPENAI API 키 입력하기
-    openai.api_key = "xxxx"
+    openai.api_key = ""
 
     # ChatGPT에게 역할 부여 및 호출하기
     messages = [{"role": "system", "content": "You're a scorer who distinguishes between the correct and incorrect answers in the code."}]
